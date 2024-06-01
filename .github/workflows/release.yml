@@ -14,13 +14,13 @@ jobs:
                     node-version: '20'
             - run: npm install -g yarn
             - run: yarn
-            - run: yarn make --platform linux
+            - run: yarn make
             - uses: actions/upload-artifact@v4
               with:
                 name: "Upload Artifacts"
                 path: "out/**"
     windows:
-        runs-on: ubuntu-latest
+        runs-on: windows-latest
         steps:
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
@@ -28,7 +28,7 @@ jobs:
                     node-version: '20'
             - run: npm install -g yarn
             - run: yarn
-            - run: yarn make --platform win32
+            - run: yarn make
             - uses: actions/upload-artifact@v4
               with:
                 name: "Upload Artifacts"
