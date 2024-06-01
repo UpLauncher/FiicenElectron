@@ -1,8 +1,6 @@
 import { app, BrowserWindow, ipcMain, shell } from "electron";
 import * as fs from "node:fs/promises";
 
-// for test commit comment
-
 const createWindow = async () => {
   const win = new BrowserWindow({
     icon: "images/icon.png",
