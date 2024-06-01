@@ -4,16 +4,16 @@ const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 module.exports = {
   packagerConfig: {
     asar: true,
-    icon: "/images/icon"
+    icon: "images/icon"
   },
   rebuildConfig: {},
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
       config: {
-        iconUrl: "/images/icon.ico",
-        setupIcon: "/images/icon.ico",
-        loadingGif: "https://i.pinimg.com/originals/8f/ef/08/8fef0805113e56aa6a7d44e3289a680e.gif"
+        iconUrl: "https://raw.githubusercontent.com/UpLauncher/FiicenElectron/master/images/icon.ico",
+        setupIcon: "images/icon.ico",
+        loadingGif: "https://raw.githubusercontent.com/UpLauncher/FiicenElectron/master/images/ready.gif"
       },
     },
     {

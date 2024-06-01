@@ -1,9 +1,9 @@
-import { app, BrowserWindow, shell } from "electron";
+import { app, BrowserWindow, ipcMain, shell } from "electron";
 import * as fs from "node:fs/promises";
 
 const createWindow = async () => {
   const win = new BrowserWindow({
-    icon: "/images/icon.png",
+    icon: "images/icon.png",
     width: 800,
     height: 600,
     webPreferences: {
@@ -18,22 +18,24 @@ const createWindow = async () => {
 
   win.loadURL("https://fiicen.jp");
 
-  fs.readFile("settings.json").then(() => {
+  fs.readFile(app.getAppPath() + "\\settings.json").then(() => {
+    console.log(app.getAppPath())
     console.log("File reading completed!")
   }).catch((err) => {
     if (err.toString().startsWith("Error: ENOENT: ")) {
       console.warn("settings.json not found; creating settings.json")
-      fs.writeFile("settings.json", JSON.stringify({custom_css: ""}))
+      fs.writeFile(app.getAppPath() + "\\settings.json", JSON.stringify({custom_css: ""}))
     } else {
       console.warn("Error: SRE_UNKNOWN: ", err.toString())
     }
   })
 
+
   win.webContents.on("before-input-event", (_, input) => {
     if (input.type === "keyDown" && input.key === "F12") {
       win.webContents.isDevToolsOpened()
         ? win.webContents.closeDevTools()
-        : win.webContents.openDevTools({ mode: "left" });
+        : win.webContents.openDevTools();
     }
   });
 
@@ -46,5 +48,6 @@ const createWindow = async () => {
 };
 
 app.whenReady().then(() => {
+  ipcMain.handle('getAppPath', () => app.getAppPath())
   createWindow();
 });
