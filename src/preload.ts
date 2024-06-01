@@ -12,21 +12,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   observer.observe(document.body, config);
 });
 
-function callback() {
+window.addEventListener("load", () => {
   const logger = new Logger("preload.ts: callback");
-  const copyright = document.querySelectorAll("div.copyright");
-  copyright.forEach((element) => {
-    if (!element.classList.contains("desktop-added-copyright")) {
-      if (element.parentElement?.classList.contains("footer")) {
-        element.classList.add("desktop-added-copyright");
-        element.innerHTML += ` (Desktop made by <a href="/field/raic" class="link">@raic</a>!)`;
-      } else {
-        element.classList.add("desktop-added-copyright");
-        element.innerHTML += `<br>Fiicen Desktop made by <a href="/field/raic" class="link">@raic</a>!`;
-      }
-    }
-  });
-
   if (!document.querySelector("style.desktop-added-style")) {
     const settingsJsonPath = getAppPath + "\\settings.json";
     logger.info(`[fileLoader] Load Configuration: (${settingsJsonPath})`);
@@ -60,6 +47,21 @@ function callback() {
         }
       });
   }
+});
+
+function callback() {
+  const copyright = document.querySelectorAll("div.copyright");
+  copyright.forEach((element) => {
+    if (!element.classList.contains("desktop-added-copyright")) {
+      if (element.parentElement?.classList.contains("footer")) {
+        element.classList.add("desktop-added-copyright");
+        element.innerHTML += ` (Desktop made by <a href="/field/raic" class="link">@raic</a>!)`;
+      } else {
+        element.classList.add("desktop-added-copyright");
+        element.innerHTML += `<br>Fiicen Desktop made by <a href="/field/raic" class="link">@raic</a>!`;
+      }
+    }
+  });
 
   if (window.location.href.startsWith("https://fiicen.jp/settings/")) {
     const settingsMenu = document.querySelector("div.settings-menu");

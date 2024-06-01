@@ -13,7 +13,7 @@ module.exports = {
       config: {
         iconUrl: "https://raw.githubusercontent.com/UpLauncher/FiicenElectron/master/images/icon.ico",
         setupIcon: "images/icon.ico",
-        loadingGif: "https://raw.githubusercontent.com/UpLauncher/FiicenElectron/master/images/ready.gif"
+        loadingGif: "images/ready.gif"
       },
     },
     {

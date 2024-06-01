@@ -1,0 +1,35 @@
+name: push-release
+run-name: "ビルドしてリリース"
+on: 
+    push:
+        paths:
+            - src/**
+jobs:
+    linux:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                    node-version: '20'
+            - run: npm install -g yarn
+            - run: yarn
+            - run: yarn make --platform linux
+            - uses: actions/upload-artifact@v4
+              with:
+                name: "Upload Artifacts"
+                path: "out/**"
+    windows:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                    node-version: '20'
+            - run: npm install -g yarn
+            - run: yarn
+            - run: yarn make --platform win32
+            - uses: actions/upload-artifact@v4
+              with:
+                name: "Upload Artifacts"
+                path: "out/**"

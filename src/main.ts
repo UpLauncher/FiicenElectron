@@ -18,13 +18,13 @@ const createWindow = async () => {
 
   win.loadURL("https://fiicen.jp");
 
-  fs.readFile(app.getAppPath() + "\\settings.json").then(() => {
-    console.log(app.getAppPath())
+  fs.readFile(process.resourcesPath + "\\settings.json").then(() => {
+    console.log(process.resourcesPath)
     console.log("File reading completed!")
   }).catch((err) => {
     if (err.toString().startsWith("Error: ENOENT: ")) {
       console.warn("settings.json not found; creating settings.json")
-      fs.writeFile(app.getAppPath() + "\\settings.json", JSON.stringify({custom_css: ""}))
+      fs.writeFile(process.resourcesPath + "\\settings.json", JSON.stringify({custom_css: ""}))
     } else {
       console.warn("Error: SRE_UNKNOWN: ", err.toString())
     }
@@ -48,6 +48,10 @@ const createWindow = async () => {
 };
 
 app.whenReady().then(() => {
-  ipcMain.handle('getAppPath', () => app.getAppPath())
+  ipcMain.handle('getAppPath', () => process.resourcesPath)
+
+  if (require("electron-squirrel-startup")) {
+    app.quit()
+  }
   createWindow();
 });

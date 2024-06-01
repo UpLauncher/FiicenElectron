@@ -1,7 +1,8 @@
 {
   "name": "fiicen-desktop",
+  "productName": "Fiicen Desktop",
   "author": "Rai (@raic), original fiicen developers",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A desktop version of Fiicen.",
   "main": "dist/main.js",
   "license": "MIT",
