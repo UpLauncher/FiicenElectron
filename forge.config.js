@@ -4,7 +4,8 @@ const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 module.exports = {
   packagerConfig: {
     asar: true,
-    icon: "images/icon"
+    icon: "images/icon",
+    executableName: "fiicen-desktop"
   },
   rebuildConfig: {},
   makers: [
