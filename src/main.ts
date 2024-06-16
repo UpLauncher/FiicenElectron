@@ -4,7 +4,6 @@ import { Menu } from "electron/main";
 import * as fs from "node:fs/promises";
 import { Logger } from "./utils/logger";
 import * as child from "child_process"
-//
 
 const createWindow = async () => {
   const win = new BrowserWindow({

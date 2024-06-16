@@ -1,35 +1,51 @@
 name: push-release
 run-name: "ビルドしてリリース"
-on: 
-    push:
-        paths:
-            - src/**
+on:
+  push:
+    paths:
+      - src/**
 jobs:
-    linux:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4
-              with:
-                    node-version: '20'
-            - run: npm install -g pnpm
-            - run: pnpm install
-            - run: pnpm make
-            - uses: actions/upload-artifact@v4
-              with:
-                name: "linux"
-                path: "out/**"
-    windows:
-        runs-on: windows-latest
-        steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4
-              with:
-                    node-version: '20'
-            - run: npm install -g pnpm
-            - run: pnpm install
-            - run: pnpm make
-            - uses: actions/upload-artifact@v4
-              with:
-                name: "windows"
-                path: "out/**"
+  linux:
+    name: "Build & Upload Linux"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+      - name: "Setup Node.js 20"
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "yarn"
+      - name: "Install yarn"
+        run: npm install -g yarn
+      - name: "Install Packages on yarn"
+        run: yarn install
+      - name: "Build"
+        run: yarn make
+      - name: "Upload Artifacts"
+        uses: actions/upload-artifact@v4
+        with:
+          name: "linux"
+          path: "out/**"
+  windows:
+    name: "Build & Upload Windows"
+    runs-on: windows-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+      - name: "Setup Node.js 20"
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "yarn"
+      - name: "Install yarn"
+        run: npm install -g yarn
+      - name: "Install Packages on yarn"
+        run: yarn install
+      - name: "Build"
+        run: yarn make
+      - name: "Upload Artifacts"
+        uses: actions/upload-artifact@v4
+        with:
+          name: "windows"
+          path: "out/**"

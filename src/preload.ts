@@ -264,7 +264,7 @@ function addDesktopElements(settingsElement: Element) {
     menuItem2.innerHTML += '<img src="/static/icon/right.svg">';
 
     menuItem2.addEventListener("click", () => {
-      child.exec("start " + getAppPath + "\\settings.json");
+      child.exec("start \"" + getAppPath + "\\settings.json\"");
     });
 
     // settingsContents.classList.add(
