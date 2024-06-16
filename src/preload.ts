@@ -1,7 +1,7 @@
 import * as fs from "node:fs/promises";
 import * as child from "node:child_process";
 import { App, contextBridge, ipcRenderer } from "electron";
-import { Logger } from "./modules";
+import { Logger } from "./utils/logger";
 
 let getAppPath = "";
 
@@ -13,14 +13,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 window.addEventListener("load", () => {
-  const logger = new Logger("preload.ts: callback");
+  const logger = new Logger("fileLoader");
   if (!document.querySelector("style.desktop-added-style")) {
     const settingsJsonPath = getAppPath + "\\settings.json";
-    logger.info(`[fileLoader] Load Configuration: (${settingsJsonPath})`);
+    logger.info(`Load Configuration: (${settingsJsonPath})`);
     fs.readFile(settingsJsonPath)
       .then((file) => {
         logger.info(
-          `[fileLoader] configuration loading completed. (${settingsJsonPath})`
+          `configuration loading completed. (${settingsJsonPath})`
         );
         const json = JSON.parse(file.toString());
 
@@ -32,18 +32,18 @@ window.addEventListener("load", () => {
 
         //
         logger.info(
-          `[fileLoader] configuration setting apply complete. (${settingsJsonPath})`
+          `configuration setting apply complete. (${settingsJsonPath})`
         );
       })
       .catch((err) => {
         if (err.toString().startsWith("ENOENT: ")) {
-          console.warn("settings.json not found; creating settings.json");
+          logger.warn("settings.json not found; creating settings.json");
           fs.writeFile(
             getAppPath + "\\settings.json",
             JSON.stringify({ custom_css: "" })
           );
         } else {
-          console.warn("Error: setting read error");
+          logger.warn("Error: setting read error");
         }
       });
   }

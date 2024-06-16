@@ -12,12 +12,12 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                     node-version: '20'
-            - run: npm install -g yarn
-            - run: yarn
-            - run: yarn make
+            - run: npm install -g pnpm
+            - run: pnpm
+            - run: pnpm make
             - uses: actions/upload-artifact@v4
               with:
-                name: "Upload Artifacts"
+                name: "linux"
                 path: "out/**"
     windows:
         runs-on: windows-latest
@@ -26,10 +26,10 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                     node-version: '20'
-            - run: npm install -g yarn
-            - run: yarn
-            - run: yarn make
+            - run: npm install -g pnpm
+            - run: pnpm
+            - run: pnpm make
             - uses: actions/upload-artifact@v4
               with:
-                name: "Upload Artifacts"
+                name: "windows"
                 path: "out/**"
